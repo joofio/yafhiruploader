@@ -28,6 +28,7 @@ def collect_fhir_files(example_folder_path):
     for root, _, files in os.walk(example_folder_path):
         for file in files:
             if file.endswith(".json"):
+                print(file)
                 fhir_files.append(os.path.join(root, file))
     return fhir_files
 
