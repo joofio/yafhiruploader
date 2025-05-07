@@ -10,7 +10,6 @@ WORKDIR /app
 COPY upload_fhir.py /app/upload_fhir.py
 
 # Set the entrypoint to the Python script
-ENTRYPOINT ["python", "upload_fhir.py"]
-
+ENTRYPOINT []
 # Default command to pull in ENV vars as arguments
-CMD ["${TGZ_FILE_URL}", "${SERVER_URL}"]
+CMD ["sh", "-c", "python upload_fhir.py \"$TGZ_FILE_URL\" \"$SERVER_URL\""]
