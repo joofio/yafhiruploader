@@ -30,6 +30,8 @@ def collect_fhir_files(example_folder_path):
             if file.endswith(".json"):
                 print(file)
                 fhir_files.append(os.path.join(root, file))
+    if len(fhir_files) == 0:
+        raise Exception("No examples files found", example_folder_path)
     return fhir_files
 
 
@@ -79,13 +81,13 @@ def main():
         download_tgz(tgz_file_url, tgz_path)
         extract_tgz(tgz_path, temp_dir)
 
-        example_folder_path = os.path.join(temp_dir, "Package", "example")
+        example_folder_path = os.path.join(temp_dir, "package", "example")
         fhir_files = collect_fhir_files(example_folder_path)
 
         max_attempts = 4
         attempt = 1
         failed_files = [{"file": f} for f in fhir_files]
-
+        print(bool(failed_files))
         while attempt <= max_attempts and failed_files:
             print(f"\nAttempt {attempt} - Uploading {len(failed_files)} files...")
             failed_paths = [f["file"] for f in failed_files]
