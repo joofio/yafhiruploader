@@ -12,4 +12,4 @@ COPY upload_fhir.py /app/upload_fhir.py
 # Set the entrypoint to the Python script
 ENTRYPOINT []
 # Default command to pull in ENV vars as arguments
-CMD ["sh", "-c", "python upload_fhir.py \"$TGZ_FILE_URL\" \"$SERVER_URL\""]
+CMD ["sh", "-c", "sleep ${WAITTIME:-60} && python upload_fhir.py \"$TGZ_FILE_URL\" \"$SERVER_URL\""]
