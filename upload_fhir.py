@@ -94,9 +94,20 @@ def main():
 
         if failed_files:
             error_report = {"failed_uploads": failed_files, "attempts": attempt - 1}
-            error_file_path = os.path.join(os.getcwd(), "upload_errors.json")
+
+            # Define the output directory
+            output_dir = os.path.join(os.getcwd(), "output")
+            os.makedirs(
+                output_dir, exist_ok=True
+            )  # Create the directory if it doesn't exist
+
+            # Define the error file path inside the output directory
+            error_file_path = os.path.join(output_dir, "upload_errors.json")
+
+            # Write the error report
             with open(error_file_path, "w") as ef:
                 json.dump(error_report, ef, indent=2)
+
             print(f"\n❌ Upload finished with errors. See details in {error_file_path}")
         else:
             print("\n✅ All files uploaded successfully.")
