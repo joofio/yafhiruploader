@@ -71,26 +71,24 @@ def upload_fhir_files(fhir_files, server_url, separate_bundles=True):
                                 "message": response.text,
                             }
                         )
-            else:
-                response = requests.put(
-                    f"{server_url}/{resourcetype}/{_id}", json=resource
-                )
+            # puts the bundle as well.
+            response = requests.put(f"{server_url}/{resourcetype}/{_id}", json=resource)
 
-                if response.status_code in (200, 201):
-                    print(
-                        f"Uploaded {os.path.basename(file_path)}: Success ({response.status_code})"
-                    )
-                else:
-                    print(
-                        f"Failed {os.path.basename(file_path)}: ({response.status_code}) - {response.text}"
-                    )
-                    failed_files.append(
-                        {
-                            "file": file_path,
-                            "status": response.status_code,
-                            "message": response.text,
-                        }
-                    )
+            if response.status_code in (200, 201):
+                print(
+                    f"Uploaded {os.path.basename(file_path)}: Success ({response.status_code})"
+                )
+            else:
+                print(
+                    f"Failed {os.path.basename(file_path)}: ({response.status_code}) - {response.text}"
+                )
+                failed_files.append(
+                    {
+                        "file": file_path,
+                        "status": response.status_code,
+                        "message": response.text,
+                    }
+                )
 
     return failed_files
 
