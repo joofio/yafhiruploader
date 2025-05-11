@@ -21,6 +21,16 @@ docker run --rm \
     -e SERVER_URL=http://host.docker.internal:8787/fhir -e WAITTIME=0 \
     jfcal/yafhiriguploader
 ```
+
+or mapping the volumes:
+ ```bash
+docker run --rm \
+    -e TGZ_FILE_URL=https://build.fhir.org/ig/hl7-eu/gravitate-health/package.tgz \
+    -e SERVER_URL=http://host.docker.internal:8787/fhir -e WAITTIME=0 -v ./fhir-output:/app/output \
+    jfcal/yafhiriguploader
+```
+
+
 #### directly from the python
 or 
 ```python upload_fhir.py https://example.com/file.tgz https://server.com --separate_bundles False```
